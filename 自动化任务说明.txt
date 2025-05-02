@@ -1,0 +1,40 @@
+最终的手动设置步骤（供您参考）：
+
+确保 clash_task_template.xml 文件（内容来自 Turn 65，编码 UTF-16 LE）放在 C:\Users\DELL\Desktop\clash_vps_speedtest_pack\ 目录下。
+以管理员身份打开命令提示符 (cmd) 或 PowerShell。
+运行 cd /d "C:\Users\DELL\Desktop\clash_vps_speedtest_pack" 进入目录。
+运行 schtasks /create /F /XML "clash_task_template.xml" /TN "Clash_Auto_SpeedTest"。
+看到成功提示即可。
+（可选）打开任务计划程序，检查 "Clash_Auto_SpeedTest" 任务的触发器、操作等属性是否都正确。
+
+
+手动导入步骤：
+
+打开任务计划程序 (Task Scheduler)：
+
+点击 Windows 的“开始”按钮或搜索框。
+输入“任务计划程序”或英文“Task Scheduler”。
+在搜索结果中找到并点击打开“任务计划程序”应用。
+找到导入操作：
+
+在打开的“任务计划程序”窗口中，看向右侧的“操作”面板。
+在“操作”面板里，找到并点击“导入任务...”(Import Task...)。
+(这是一个概念图，实际界面可能略有不同)
+
+选择 XML 文件：
+
+点击“导入任务...”后，会弹出一个文件选择窗口。
+在这个窗口中，请浏览到您存放脚本的文件夹，即 C:\Users\DELL\Desktop\clash_vps_speedtest_pack\。
+找到并选中 clash_task_template.xml 这个文件。
+点击窗口右下角的“打开” (Open) 按钮。
+创建任务窗口：
+
+点击“打开”后，应该会弹出一个名为“创建任务” (Create Task) 的新窗口。
+这个窗口的各个选项卡（常规、触发器、操作、条件、设置）应该已经根据 clash_task_template.xml 文件中的内容被预先填好了。您会看到任务名称（可能默认为 XML 里的 Author 或需要您输入，比如输入 "Clash_Auto_SpeedTest"），描述，触发器时间（应该有 08:00, 12:00, 18:00），以及要执行的操作（运行您的 .bat 文件）等信息。
+在这一步，您暂时不需要修改任何设置，我们的主要目的是看导入过程本身会不会报错。
+确认导入：
+
+点击“创建任务”窗口右下角的“确定” (OK) 按钮。
+观察结果（重要！）：
+
+如果成功：点击“确定”后，窗口直接关闭，并且没有弹出任何错误提示框。然后您可以在任务计划程序库（窗口中间的主要列表区域，可能需要刷新一下）中找到刚刚创建的任务（例如名为 "Clash_Auto_SpeedTest"）。—— 这说明 clash_task_template.xml 文件本身格式正确，编码无误，并且您的系统允许创建这个任务。问题就更可能出在批处理脚本调用 schtasks 的环节。
